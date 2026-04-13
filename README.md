@@ -45,10 +45,10 @@ Please ensure your development environment has the following installed:
 Open In `src/main/resources/application.properties`, modify the settings to match your database:
 
 `properties`
-* **spring.datasource.url=jdbc:mysql://localhost:3306/todo_jwt_db
-* **spring.datasource.username=root
-* **spring.datasource.password=your password
-* **spring.jpa.hibernate.ddl-auto=update
+* spring.datasource.url=jdbc:mysql://localhost:3306/todo_jwt_db
+* spring.datasource.username=root
+* spring.datasource.password=your password
+* spring.jpa.hibernate.ddl-auto=update
 
 
 # Start project
@@ -58,6 +58,6 @@ mvn clean install
 mvn spring-boot:run
 
 # Future Improvements
-* **Integrate Swagger UI/SpringDoc for automatic API file generation
-* **Add JUnit and Mockito for unit and integration testing
-* **Implement a Global Exception Handler to standardize error posting format
+* Integrate Swagger UI/SpringDoc for automatic API file generation
+* Add JUnit and Mockito for unit and integration testing
+* Implement a Global Exception Handler to standardize error posting format
