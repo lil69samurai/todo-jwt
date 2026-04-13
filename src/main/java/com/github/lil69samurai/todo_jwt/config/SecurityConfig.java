@@ -1,21 +1,23 @@
 package com.github.lil69samurai.todo_jwt.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
-    public SecurityConfig() {
-        // 如果系統有讀到這個檔案，啟動時 Console 會印出這行字！
-        System.out.println("====== SecurityConfig 設定檔已經成功載入！ ======");
-    }
+
+    private final JwtRequestFilter jwtRequestFilter;
+
     // Password Encryptor
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -26,12 +28,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // Disabling CSRF protection.
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Allow URLs access data without logging in (for registration/login).
+                        .requestMatchers("/api/auth/**").permitAll() // 登入註冊免驗證
                         .requestMatchers("/error").permitAll()
-                        .anyRequest().authenticated() // All other websites require login credentials to access.
-                );
+                        .anyRequest().authenticated() // 其他都要驗證
+                )
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 }
