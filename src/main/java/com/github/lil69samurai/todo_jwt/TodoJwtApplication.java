@@ -11,4 +11,3 @@ public class TodoJwtApplication {
 	}
 
 }
-https://github.com/lil69samurai/todo-jwt.git
