@@ -1,4 +1,4 @@
-# 🚀 Todo Management System with LINE Bot Integration
+# Todo Management System with LINE Bot Integration
 
 ![Java](https://img.shields.io/badge/Java-17%2B-ED8B00?style=for-the-badge&logo=java&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
@@ -11,15 +11,15 @@
 
 ---
 
-## ✨ Key Features (主な機能と特徴)
+## Key Features (主な機能と特徴)
 
-### 🇺🇸 English
+### English
 1. **JWT Authentication & Authorization:** Secured API endpoints using Spring Security. Users can only access their own resources.
 2. **LINE Messaging API Integration:** A fully functional webhook controller receiving and processing user messages in real-time.
 3. **Cross-Platform Account Linking:** Binds a user's unique `LINE User ID` to their database `Username`, enabling a passwordless, conversational UI experience for task management.
 4. **Spring Boot 3 Compatibility:** Upgraded to support `jakarta` namespace and the latest LINE SDK v8.x architecture.
 
-### 🇯🇵 日本語
+### 日本語
 1. **JWT 認証・認可:** Spring Security を用いたセキュアな API 設計。ユーザーは自身のデータのみにアクセス可能です。
 2. **LINE Messaging API 統合:** Webhook を通じてユーザーからのメッセージをリアルタイムで受信・処理します。
 3. **アカウント連携 (Account Linking):** ユーザーの `LINE User ID` とデータベース内のアカウント（Username）を紐付ける機能を実装。パスワード入力なしで LINE からタスク管理が可能です。
@@ -27,7 +27,7 @@
 
 ---
 
-## 🛠️ Tech Stack (技術スタック)
+##  Tech Stack (技術スタック)
 - **Backend:** Java (JDK 21), Spring Boot 3, Spring Security, Spring Data JPA
 - **Database:** MySQL 8.0
 - **Integration:** LINE Messaging API (line-bot-spring-boot-webmvc)
@@ -35,7 +35,7 @@
 
 ---
 
-## 💬 LINE Bot Commands (Bot の使い方)
+##  LINE Bot Commands (Bot の使い方)
 *(Scan your QR code to add the bot, then use the following commands)*
 
 | Command (コマンド) | Description (説明) |
@@ -46,19 +46,19 @@
 
 ---
 
-## 🔌 API Endpoints
+##  API Endpoints
 | HTTP Method | Endpoint | Description | Requires JWT |
-| :--- | :--- | :--- | :---: |
-| **POST** | `/api/auth/register` | Register a new user | ❌ No |
-| **POST** | `/api/auth/login` | User login (Returns Token) | ❌ No |
-| **GET** | `/api/todos` | Get all todos for the current user | 🔒 Required |
-| **POST** | `/api/todos` | Create a new todo | 🔒 Required |
-| **PUT** | `/api/todos/{id}` | Update a specific todo | 🔒 Required |
-| **DELETE** | `/api/todos/{id}` | Delete a specific todo | 🔒 Required |
+| :--- | :--- | :--- |:------------:|
+| **POST** | `/api/auth/register` | Register a new user |      No      |
+| **POST** | `/api/auth/login` | User login (Returns Token) |      No      |
+| **GET** | `/api/todos` | Get all todos for the current user |   Required   |
+| **POST** | `/api/todos` | Create a new todo |  Required  |
+| **PUT** | `/api/todos/{id}` | Update a specific todo |   Required   |
+| **DELETE** | `/api/todos/{id}` | Delete a specific todo |   Required   |
 
 ---
 
-## ⚙️ Getting Started (環境構築と実行)
+##  Getting Started (環境構築と実行)
 
 ### 1. Prerequisites
 Ensure your development environment has the following installed:
@@ -98,7 +98,7 @@ bash ngrok http 8080
 
 Copy the https forwarding URL and paste it into your LINE Developers Console Webhook settings, appending /callback to the end (e.g., https://xxxx.ngrok.app/callback).
 
-### 🚀 Future Improvements (今後の展望)
+###  Future Improvements (今後の展望)
 Integrate Swagger UI / SpringDoc for automatic API documentation generation.
 Add JUnit and Mockito for comprehensive unit and integration testing.
 Implement a Global Exception Handler to standardize error response formats.
