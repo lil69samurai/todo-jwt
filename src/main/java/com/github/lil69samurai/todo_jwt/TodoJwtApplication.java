@@ -9,5 +9,4 @@ public class TodoJwtApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TodoJwtApplication.class, args);
 	}
-
 }

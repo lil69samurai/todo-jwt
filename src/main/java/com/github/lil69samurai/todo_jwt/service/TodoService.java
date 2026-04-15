@@ -24,13 +24,13 @@ public class TodoService {
                 .orElseThrow(() -> new RuntimeException("Currently logged-in users cannot be found！"));
     }
 
-    // 1. 查詢 (Read)：取得該使用者的所有待辦事項
+    // Search user's all To-do list.
     public List<Todo> getMyTodos() {
         User currentUser = getCurrentUser();
         return todoRepository.findByUser(currentUser); // 只撈出屬於他的 Todo
     }
 
-    // 2. 新增 (Create)：建立新的待辦事項
+    // Create new To-do status.
     public Todo createTodo(TodoRequest request) {
         User currentUser = getCurrentUser();
 
@@ -44,7 +44,7 @@ public class TodoService {
         return todoRepository.save(newTodo);
     }
 
-    // 3. 修改 (Update)：更新待辦事項內容或狀態
+    // Update To-do status.
     public Todo updateTodo(Long id, TodoRequest request) {
         User currentUser = getCurrentUser();
         Todo existingTodo = todoRepository.findById(id)
@@ -62,7 +62,7 @@ public class TodoService {
         return todoRepository.save(existingTodo);
     }
 
-    // 4. 刪除 (Delete)
+    // Delete
     public void deleteTodo(Long id) {
         User currentUser = getCurrentUser();
         Todo existingTodo = todoRepository.findById(id)
@@ -73,5 +73,45 @@ public class TodoService {
         }
 
         todoRepository.delete(existingTodo);
+    }
+    // ==========================================
+    // 🌟 以下為 LINE Bot 專屬方法 (繞過 JWT，改認 LINE ID)
+    // ==========================================
+
+    // LINE 功能 1：綁定帳號 (把使用者的 username 和 lineUserId 連在一起)
+    public String bindLineAccount(String username, String lineUserId) {
+        User user = userRepository.findByUsername(username)
+                .orElse(null);
+
+        if (user == null) {
+            return "找不到此帳號，請確認帳號名稱是否正確！";
+        }
+
+        user.setLineUserId(lineUserId);
+        userRepository.save(user);
+        return "🔗 綁定成功！您現在可以開始使用 LINE 管理待辦事項了。";
+    }
+
+    // LINE 功能 2：透過 LINE ID 查詢待辦事項
+    public List<Todo> getTodosByLineId(String lineUserId) {
+        User user = userRepository.findByLineUserId(lineUserId)
+                .orElseThrow(() -> new RuntimeException("請先輸入「綁定帳號：您的帳號」進行綁定！"));
+
+        return todoRepository.findByUser(user);
+    }
+
+    // LINE 功能 3：透過 LINE ID 新增待辦事項
+    public Todo createTodoByLineId(String lineUserId, String title) {
+        User user = userRepository.findByLineUserId(lineUserId)
+                .orElseThrow(() -> new RuntimeException("請先輸入「綁定帳號：您的帳號」進行綁定！"));
+
+        Todo newTodo = Todo.builder()
+                .title(title)
+                .description("來自 LINE 的待辦事項")
+                .completed(false)
+                .user(user)
+                .build();
+
+        return todoRepository.save(newTodo);
     }
 }

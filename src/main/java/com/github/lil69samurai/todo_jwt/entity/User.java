@@ -22,6 +22,10 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    // Safe uder LINE ID
+    @Column(name = "line_user_id", unique = true)
+    private String lineUserId;
+
     @Column(nullable = false)
     private String role; // 例如: ROLE_USER
 }
