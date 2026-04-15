@@ -105,6 +105,18 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>com.linecorp.bot</groupId>
+            <artifactId>line-bot-spring-boot-webmvc</artifactId>
+            <version>8.6.0</version>
+        </dependency>
+
+        <!-- 🌟 請補上這一個漏網之魚！ -->
+        <dependency>
+            <groupId>com.linecorp.bot</groupId>
+            <artifactId>line-bot-spring-boot-handler</artifactId>
+            <version>8.6.0</version>
+        </dependency>
 	</dependencies>
 
 	<build>
